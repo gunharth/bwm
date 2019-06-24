@@ -1,6 +1,6 @@
 {
-  "name": "bwm",
-  "short_name": "bwm",
+  "name": "Beer with Me",
+  "short_name": "Beer with Me",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
