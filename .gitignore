@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 /dist
+/src/configFirebase.js
+/functions/serverKeys.js
 
 # local env files
 .env.local
