@@ -1,91 +1,109 @@
 <template>
-<v-container fluid fill-height>
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
-            <v-card class="elevation-12">
-              <v-toolbar dark color="primary">
-                <v-toolbar-title>Login form</v-toolbar-title>
-                <v-spacer></v-spacer>
-              </v-toolbar>
-              <v-card-text>
-                <v-form>
-                  <v-text-field prepend-icon="person" name="login" label="Login" type="email" v-model="email" placeholder="Email"></v-text-field>
-                  <v-text-field prepend-icon="lock" name="password" label="Password" id="password" type="password" v-model="password" placeholder="Password"></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" @click="login">Login</v-btn>
-              </v-card-actions>
-              <p>
-      or Sign In with Google <br>
-      <button @click="socialLogin" class="social-button">
-        <img alt="Google Logo" src="../assets/google-logo.png">
-      </button>
-    </p>
-    <p>You don't have an account ? You can <router-link to="/sign-up">create one</router-link></p>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
+  <v-container fluid fill-height>
+    <v-layout align-center justify-center>
+      <v-flex xs12 sm8 md4>
+        <v-card class="elevation-12">
+          <v-toolbar dark color="primary">
+            <v-toolbar-title>Login</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+          <v-card-text>
+            <v-form>
+              <v-text-field
+                prepend-icon="person"
+                name="email"
+                label="E-mail"
+                type="email"
+                v-model="email"
+              ></v-text-field>
+              <v-text-field
+                prepend-icon="lock"
+                name="password"
+                label="Password"
+                id="password"
+                type="password"
+                v-model="password"
+              ></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="login">Login</v-btn>
+          </v-card-actions>
+          <v-card-text>
+              or Sign In with
+              <button @click="socialLogin" class="social-button">
+                <img alt="Google Logo" src="../assets/google-logo.png">
+              </button>
 
+            <p>
+              You don't have an account?
+              <router-link to="/sign-up">Create one</router-link>
+            </p>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-  import firebase from '../firebaseConfig.js'
-  export default {
-    name: 'login',
-    data() {
-      return {
-        email: '',
-        password: ''
-      }
-    },
-    methods: {
-      login: function() {
-        firebase.auth.signInWithEmailAndPassword(this.email, this.password).then(
-          (user) => {
-            return firebase.db.collection('users').doc(cred.user.uid).set({
+import firebase from "../firebaseConfig.js";
+export default {
+  name: "login",
+  data() {
+    return {
+      email: "",
+      password: ""
+    };
+  },
+  methods: {
+    login: function() {
+      firebase.auth.signInWithEmailAndPassword(this.email, this.password).then(
+        user => {
+          return firebase.db
+            .collection("users")
+            .doc(cred.user.uid)
+            .set({
               nickname: cred.user.displayName
-            }).then(() => {
-              this.$router.replace('home')
             })
-          },
-          (err) => {
-            alert('Oops. ' + err.message)
-          }
-        );
-      },
-      socialLogin() {
-        const provider = new firebase.socialAuth.GoogleAuthProvider();
-        firebase.auth.signInWithPopup(provider).then((cred) => {
-          return firebase.db.collection('users').doc(cred.user.uid).set({
-            nickname: cred.user.displayName
-          })
-        }).then(() => {
-          this.$router.replace('home');
-        }).catch((err) => {
-          alert('Oops. ' + err.message)
+            .then(() => {
+              this.$router.replace("home");
+            });
+        },
+        err => {
+          alert("Oops. " + err.message);
+        }
+      );
+    },
+    socialLogin() {
+      const provider = new firebase.socialAuth.GoogleAuthProvider();
+      firebase.auth
+        .signInWithPopup(provider)
+        .then(cred => {
+          return firebase.db
+            .collection("users")
+            .doc(cred.user.uid)
+            .set({
+              nickname: cred.user.displayName
+            });
+        })
+        .then(() => {
+          this.$router.replace("home");
+        })
+        .catch(err => {
+          alert("Oops. " + err.message);
         });
-      }
     }
   }
+};
 </script>
 
 <style scoped>
-  .social-button {
-    width: 75px;
-    background: white;
-    padding: 10px;
-    border-radius: 100%;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
-    outline: 0;
-    border: 0;
+  .social-button img {
+    width: 20px;
   }
   .social-button:active {
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
-  }
-  .social-button img {
-    width: 100%;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1)
   }
 </style>

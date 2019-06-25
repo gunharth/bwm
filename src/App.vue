@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <Snackbar />
     <v-toolbar app>
       <v-btn icon v-if="$route.name !== 'home' && $route.name !=='login'" @click="$router.go(-1) ">
         <v-icon>arrow_back</v-icon>
@@ -28,7 +29,8 @@
 </template>
 
 <script>
-import Home from "./components/Home";
+import Home from "@/components/Home";
+import Snackbar from "@/components/Snackbar";
 import firebase from "@/firebaseConfig.js";
 import axios from "axios";
 import { firestore } from "firebase";
@@ -36,11 +38,13 @@ const { messaging } = firebase;
 export default {
   name: "App",
   components: {
-    Home
+    Home,
+    Snackbar
   },
   data() {
     return {
-      //
+      snackbar: true,
+      text: "Some text"
     };
   },
   mounted() {
