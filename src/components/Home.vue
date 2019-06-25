@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import firebase from "../configFirebase.js";
+import firebase from "../firebaseConfig.js";
 import { scrypt } from "crypto";
 export default {
   data() {

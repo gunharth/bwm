@@ -1,5 +1,5 @@
 import Vue from "vue";
-import firebase from "./configFirebase.js";
+import firebase from "./firebaseConfig.js";
 import "./plugins/vuetify";
 import App from "./App.vue";
 import router from "./router";

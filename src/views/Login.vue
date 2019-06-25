@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import firebase from '../configFirebase.js'
+  import firebase from '../firebaseConfig.js'
   export default {
     name: 'login',
     data() {
@@ -29,10 +29,10 @@
         firebase.auth.signInWithEmailAndPassword(this.email, this.password).then(
           (user) => {
             return firebase.db.collection('users').doc(cred.user.uid).set({
-            nickname: cred.user.displayName
-          }).then {
-            this.$router.replace('home')
-          }
+              nickname: cred.user.displayName
+            }).then(() => {
+              this.$router.replace('home')
+            })
           },
           (err) => {
             alert('Oops. ' + err.message)

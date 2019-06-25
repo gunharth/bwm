@@ -14,7 +14,7 @@
 </template>
 
  <script>
-import firebase from '../configFirebase.js'
+import firebase from '../firebaseConfig.js'
 export default {
   name: "signUp",
   data() {

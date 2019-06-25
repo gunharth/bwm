@@ -29,7 +29,7 @@
 
 <script>
 import Home from "./components/Home";
-import firebase from "@/configFirebase.js";
+import firebase from "@/firebaseConfig.js";
 import axios from "axios";
 import { firestore } from "firebase";
 const { messaging } = firebase;
