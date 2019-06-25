@@ -1,35 +1,81 @@
 <template>
-  <div class="sign-up">
-    <p>Let's create a new account !</p>
-    <input type="text" v-model="email" placeholder="Email">
-    <br>
-    <input type="password" v-model="password" placeholder="Password">
-    <br>
-    <button @click="signUp">Sign Up</button>
-    <span>
-      or go back to
+  <v-container fluid fill-height>
+    <v-layout align-center justify-center>
+      <v-flex xs12 sm8 md4>
+        <v-card class="elevation-12">
+          <v-toolbar dark color="primary">
+            <v-toolbar-title>Sign Up</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+          <v-card-text>
+            <v-form>
+              <v-text-field
+                prepend-icon="person"
+                name="nickname"
+                label="Nickname"
+                type="text"
+                v-model="nickname"
+              ></v-text-field>
+              <v-text-field
+                prepend-icon="email"
+                name="email"
+                label="E-mail"
+                type="email"
+                v-model="email"
+              ></v-text-field>
+              <v-text-field
+                prepend-icon="lock"
+                name="password"
+                label="Password"
+                id="password"
+                type="password"
+                v-model="password"
+              ></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="signUp">Sign Up</v-btn>
+          </v-card-actions>
+          <v-card-text>
+            <p>
+              or go back to
       <router-link to="/login">login</router-link>.
-    </span>
-  </div>
+            </p>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
+
  <script>
-import firebase from '../firebaseConfig.js'
+import firebase from "../firebaseConfig.js";
 export default {
   name: "signUp",
   data() {
     return {
+      nickname: "",
       email: "",
       password: ""
     };
   },
   methods: {
     signUp: function() {
-      firebase.auth
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(
+      firebase.auth.createUserWithEmailAndPassword(this.email, this.password)
+      .then(
           user => {
-            this.$router.replace("home");
+            return firebase.db
+            .collection("users")
+            .doc(user.user.uid)
+            .set({
+              nickname: this.nickname
+            })
+            .then(() => {
+              this.$router.replace("home");
+            });
+
           },
           err => {
             alert("Oops. " + err.message);
@@ -39,24 +85,3 @@ export default {
   }
 };
 </script>
-
- <style scoped>
-.sign-up {
-  margin-top: 40px;
-}
-input {
-  margin: 10px 0;
-  width: 20%;
-  padding: 15px;
-}
-button {
-  margin-top: 10px;
-  width: 10%;
-  cursor: pointer;
-}
-span {
-  display: block;
-  margin-top: 20px;
-  font-size: 11px;
-}
-</style>

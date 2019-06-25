@@ -14,6 +14,12 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <v-layout>
+    <v-flex text-xs-center xs4 offset-xs4>
+      <v-text-field label="What snack?" v-model="snackName" />
+      <v-btn class="primary" @click="snackTime">Test snack</v-btn>
+    </v-flex>
+  </v-layout>
     <v-btn @click="$router.push({ name: 'post'})" color="red" dark fixed bottom right fab>
       <v-icon>add</v-icon>
     </v-btn>
@@ -23,12 +29,24 @@
 <script>
 import firebase from "../firebaseConfig.js";
 import { scrypt } from "crypto";
+import { mapMutations } from 'vuex'
+
 export default {
   data() {
     return {
       dogs: [],
-      displayName: ""
+      displayName: "",
+      snackName: ''
     };
+  },
+  methods: {
+    snackTime: function (snack) {
+      this.setSnack(this.snackName)
+      //this.$router.push('/')
+    },
+    ...mapMutations({
+      setSnack: 'setSnack'
+    })
   },
   mounted() {
     firebase.db
@@ -54,8 +72,6 @@ export default {
     });
 
     var user = firebase.auth.currentUser;
-    console.log(user.uid);
-    console.log(user.displayName);
     firebase.db
       .collection("users")
       .doc(user.uid)

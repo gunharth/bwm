@@ -11,6 +11,12 @@
             <v-form>
               <v-text-field
                 prepend-icon="person"
+                name="nickname"
+                label="Nickname"
+                v-model="nickname"
+              ></v-text-field>
+              <v-text-field
+                prepend-icon="email"
                 name="email"
                 label="E-mail"
                 type="email"
@@ -49,30 +55,30 @@
 
 <script>
 import firebase from "../firebaseConfig.js";
+import { mapMutations } from 'vuex'
+
 export default {
   name: "login",
   data() {
     return {
+      nickname: "",
       email: "",
-      password: ""
+      password: "",
+      snackName: ''
     };
   },
   methods: {
     login: function() {
       firebase.auth.signInWithEmailAndPassword(this.email, this.password).then(
         user => {
-          return firebase.db
-            .collection("users")
-            .doc(cred.user.uid)
-            .set({
-              nickname: cred.user.displayName
-            })
-            .then(() => {
               this.$router.replace("home");
-            });
+            //});
         },
         err => {
-          alert("Oops. " + err.message);
+          this.setSnack(err.message);
+          //this.$store.commit('store/setSnack', err.message)
+          //this.$store.dispatch('setSnack', err.message)
+          //alert("Oops. " + err.message);
         }
       );
     },
@@ -92,9 +98,13 @@ export default {
           this.$router.replace("home");
         })
         .catch(err => {
+          this.setSnack(err.message)
           alert("Oops. " + err.message);
         });
-    }
+    },
+    ...mapMutations({
+      setSnack: 'setSnack'
+    })
   }
 };
 </script>

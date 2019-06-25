@@ -5,6 +5,7 @@ import App from "./App.vue";
 import router from "./router";
 import "./registerServiceWorker";
 import "material-design-icons-iconfont/dist/material-design-icons.css";
+import store from './store/store'
 
 Vue.config.productionTip = false;
 
@@ -15,6 +16,7 @@ firebase.auth.onAuthStateChanged(() => {
     /* eslint-disable no-new */
     app = new Vue({
       router,
+      store,
       render: h => h(App)
     }).$mount("#app");
   }

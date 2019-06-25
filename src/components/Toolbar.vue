@@ -7,11 +7,12 @@
       <span>Beer With Me PWA</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
+    <span class="body-2 px-2">Hi, {{ nickname }}</span>
     <v-btn icon v-if="$route.name=='post'" @click="$router.push({name:'camera'})">
       <v-icon>camera_alt</v-icon>
     </v-btn>
     <v-btn icon v-if="$route.name=='home'" @click="getMessagingToken">
-      <v-icon>notifications_none</v-icon>
+      <v-icon>{{ icon }}</v-icon>
     </v-btn>
     <v-btn icon v-if="$route.name=='home'" @click="logout">
       <v-icon>power_settings_new</v-icon>
@@ -28,11 +29,22 @@ export default {
   name: "Toolbar",
   data() {
     return {
-      //
+      icon: "notifications_none",
+      nickname: "",
     };
   },
   mounted() {
+
     this.listenTokenRefresh();
+
+    let user = firebase.auth.currentUser;
+    firebase.db
+      .collection("users")
+      .doc(user.uid)
+      .get()
+      .then(doc => {
+        this.nickname = doc.data().nickname;
+      });
   },
   methods: {
     getMessagingToken() {
