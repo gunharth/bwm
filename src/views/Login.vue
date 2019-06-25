@@ -1,17 +1,34 @@
 <template>
-  <div class="login">
-    <h3>Sign In</h3>
-    <input type="text" v-model="email" placeholder="Email"><br>
-    <input type="password" v-model="password" placeholder="Password"><br>
-    <button @click="login">Connection</button>
-    <p>
+<v-container fluid fill-height>
+        <v-layout align-center justify-center>
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark color="primary">
+                <v-toolbar-title>Login form</v-toolbar-title>
+                <v-spacer></v-spacer>
+              </v-toolbar>
+              <v-card-text>
+                <v-form>
+                  <v-text-field prepend-icon="person" name="login" label="Login" type="email" v-model="email" placeholder="Email"></v-text-field>
+                  <v-text-field prepend-icon="lock" name="password" label="Password" id="password" type="password" v-model="password" placeholder="Password"></v-text-field>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" @click="login">Login</v-btn>
+              </v-card-actions>
+              <p>
       or Sign In with Google <br>
       <button @click="socialLogin" class="social-button">
         <img alt="Google Logo" src="../assets/google-logo.png">
       </button>
     </p>
     <p>You don't have an account ? You can <router-link to="/sign-up">create one</router-link></p>
-  </div>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+
 </template>
 
 <script>
@@ -56,27 +73,6 @@
 </script>
 
 <style scoped>
-  .login {
-    margin-top: 40px;
-  }
-  input {
-    margin: 10px 0;
-    width: 20%;
-    padding: 15px;
-  }
-  button {
-    margin-top: 20px;
-    width: 10%;
-    cursor: pointer;
-  }
-  p {
-    margin-top: 40px;
-    font-size: 13px;
-  }
-  p a {
-    text-decoration: underline;
-    cursor: pointer;
-  }
   .social-button {
     width: 75px;
     background: white;

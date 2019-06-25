@@ -1,43 +1,31 @@
 <template>
-  <v-app>
-    <v-toolbar app>
-      <v-btn icon v-if="$route.name !== 'home' && $route.name !=='login'" @click="$router.go(-1) ">
-        <v-icon>arrow_back</v-icon>
-      </v-btn>
-      <v-toolbar-title>
-        <span>Beer With Me PWA</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon v-if="$route.name=='post'" @click="$router.push({name:'camera'})">
-        <v-icon>camera_alt</v-icon>
-      </v-btn>
-      <v-btn icon v-if="$route.name=='home'" @click="getMessagingToken">
-        <v-icon>notifications_none</v-icon>
-      </v-btn>
-      <v-btn icon v-if="$route.name=='home'" @click="logout">
-        <v-icon>power_settings_new</v-icon>
-      </v-btn>
-    </v-toolbar>
-
-    <v-content>
-      <transition name="fade" mode="out-in">
-        <router-view></router-view>
-      </transition>
-    </v-content>
-  </v-app>
+  <v-toolbar app>
+    <v-btn icon v-if="$route.name !== 'home' && $route.name !=='login'" @click="$router.go(-1) ">
+      <v-icon>arrow_back</v-icon>
+    </v-btn>
+    <v-toolbar-title>
+      <span>Beer With Me PWA</span>
+    </v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-btn icon v-if="$route.name=='post'" @click="$router.push({name:'camera'})">
+      <v-icon>camera_alt</v-icon>
+    </v-btn>
+    <v-btn icon v-if="$route.name=='home'" @click="getMessagingToken">
+      <v-icon>notifications_none</v-icon>
+    </v-btn>
+    <v-btn icon v-if="$route.name=='home'" @click="logout">
+      <v-icon>power_settings_new</v-icon>
+    </v-btn>
+  </v-toolbar>
 </template>
 
 <script>
-import Home from "./components/Home";
-import firebase from "@/firebaseConfig.js";
+import firebase from "../firebaseConfig.js";
 import axios from "axios";
 import { firestore } from "firebase";
 const { messaging } = firebase;
 export default {
-  name: "App",
-  components: {
-    Home
-  },
+  name: "Toolbar",
   data() {
     return {
       //
