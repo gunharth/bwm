@@ -13,7 +13,7 @@ workbox.routing.registerRoute(
 );
 
 firebase.initializeApp({
-  messagingSenderId: "951947459030"
+  messagingSenderId: "1094519851472"
 });
 
 const messaging = firebase.messaging();

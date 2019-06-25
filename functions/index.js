@@ -82,3 +82,40 @@ exports.createDog = functions.firestore
         console.log(err.response);
       });
   });
+
+exports.createUser = functions.firestore
+  .document("users/{userId}")
+  .onCreate(event => {
+    var user = event.data();
+
+    console.log(user.nickname);
+
+    axios
+      .post(
+        `https://fcm.googleapis.com/fcm/send`,
+        {
+          to: "/topics/general",
+          priority: "high",
+          notification: {
+            title: "New User",
+            body: user.nickname,
+            click_action: "http://localhost:8081",
+            icon:
+              "http://localhost:8081/chrome/chrome-installprocess-128-128.png"
+          }
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `key=${serverKey}`
+          }
+        }
+      )
+      .then(response => {
+        console.log(response);
+        console.log(response.data);
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  });
