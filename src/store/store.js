@@ -35,11 +35,20 @@ export default new Vuex.Store({
       firebase.auth.createUserWithEmailAndPassword(payload.email, payload.password)
         .then((response) => {
           alert('success');
-          // response will have user
-          // user will have uid will be updated to the state
           commit('setUser', response.user.uid);
           commit('setStatus', 'success');
           commit('setError', null);
+
+          firebase.db
+            .collection("users")
+            .doc(response.user.uid)
+            .set({
+              nickname: 'guni'
+            })
+            .then(() => {
+              router.replace("home");
+            });
+
         })
         .catch((error) => {
           commit('setStatus', 'failure');
@@ -59,8 +68,31 @@ export default new Vuex.Store({
           commit('setError', error.message)
         })
     },
+    signInActionSocial({ commit }) {
+      const provider = new firebase.socialAuth.GoogleAuthProvider();
+      firebase.auth.signInWithPopup(provider)
+        .then((response) => {
+          console.log(response.user.uid)
+          commit('setUser', response.user.uid);
+          commit('setStatus', 'success');
+          commit('setError', null);
+
+          // return firebase.db
+          //   .collection("users")
+          //   .doc(response.user.uid)
+          //   .set({
+          //     nickname: response.user.displayName
+          //   }).then(() => {
+              router.replace("home");
+            // })
+
+        })
+        .catch((error) => {
+          commit('setStatus', 'failure')
+          commit('setError', error.message)
+        })
+    },
     signOutAction({ commit }) {
-      console.log('activated');
       firebase.auth.signOut()
         .then((response) => {
           commit('setUser', null)

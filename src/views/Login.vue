@@ -32,7 +32,7 @@
           </v-card-actions>
           <v-card-text>
               or Sign In with
-              <button @click="socialLogin" class="social-button">
+              <button @click="loginWithFirebaseSocial" class="social-button">
                 <img alt="Google Logo" src="../assets/google-logo.png">
               </button>
 
@@ -80,26 +80,29 @@ export default {
       }
       this.$store.dispatch('signInAction', user)
     },
-
-    socialLogin() {
-      const provider = new firebase.socialAuth.GoogleAuthProvider();
-      firebase.auth
-        .signInWithPopup(provider)
-        .then(cred => {
-          return firebase.db
-            .collection("users")
-            .doc(cred.user.uid)
-            .set({
-              nickname: cred.user.displayName
-            });
-        })
-        .then(() => {
-          this.$router.replace("home");
-        })
-        .catch(err => {
-          this.setSnack("Oops. " + err.message)
-        });
+    loginWithFirebaseSocial() {
+      this.$store.dispatch('signInActionSocial')
     },
+
+    // socialLogin() {
+    //   const provider = new firebase.socialAuth.GoogleAuthProvider();
+    //   firebase.auth
+    //     .signInWithPopup(provider)
+    //     .then(cred => {
+    //       return firebase.db
+    //         .collection("users")
+    //         .doc(cred.user.uid)
+    //         .set({
+    //           nickname: cred.user.displayName
+    //         });
+    //     })
+    //     .then(() => {
+    //       this.$router.replace("home");
+    //     })
+    //     .catch(err => {
+    //       this.setSnack("Oops. " + err.message)
+    //     });
+    // },
 
     ...mapMutations({
       setSnack: 'setSnack'

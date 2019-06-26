@@ -36,10 +36,8 @@ export default {
   created() {
   },
   mounted() {
-    console.log('mounted')
     //this.getUserDetails();
     this.listenTokenRefresh();
-
   },
   computed: {
     userLogedIn () {
@@ -126,12 +124,7 @@ export default {
         });
     },
     logout: function() {
-      //logoutFromFirebase () {
         this.$store.dispatch('signOutAction');
-      //}
-      // firebase.auth.signOut().then(() => {
-      //   this.$router.replace("login");
-      // });
     }
   }
 };

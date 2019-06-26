@@ -69,15 +69,15 @@ export default {
       // firebase.auth.createUserWithEmailAndPassword(this.email, this.password)
       // .then(
       //     user => {
-      //       return firebase.db
-      //       .collection("users")
-      //       .doc(user.user.uid)
-      //       .set({
-      //         nickname: this.nickname
-      //       })
-      //       .then(() => {
-      //         this.$router.replace("home");
-      //       });
+            // return firebase.db
+            // .collection("users")
+            // .doc(user.user.uid)
+            // .set({
+            //   nickname: this.nickname
+            // })
+            // .then(() => {
+            //   this.$router.replace("home");
+            // });
 
       //     },
       //     err => {
