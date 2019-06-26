@@ -9,15 +9,15 @@ import store from './store/store'
 
 Vue.config.productionTip = false;
 
-let app = "";
+// let app = "";
 
-firebase.auth.onAuthStateChanged(() => {
-  if (!app) {
+// firebase.auth.onAuthStateChanged(() => {
+//   if (!app) {
     /* eslint-disable no-new */
-    app = new Vue({
+    new Vue({
       router,
       store,
       render: h => h(App)
     }).$mount("#app");
-  }
-});
+  // }
+// });

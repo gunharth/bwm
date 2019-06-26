@@ -65,24 +65,33 @@ export default {
   },
   methods: {
     signUp: function() {
-      firebase.auth.createUserWithEmailAndPassword(this.email, this.password)
-      .then(
-          user => {
-            return firebase.db
-            .collection("users")
-            .doc(user.user.uid)
-            .set({
-              nickname: this.nickname
-            })
-            .then(() => {
-              this.$router.replace("home");
-            });
+      this.registerWithFirebase();
+      // firebase.auth.createUserWithEmailAndPassword(this.email, this.password)
+      // .then(
+      //     user => {
+      //       return firebase.db
+      //       .collection("users")
+      //       .doc(user.user.uid)
+      //       .set({
+      //         nickname: this.nickname
+      //       })
+      //       .then(() => {
+      //         this.$router.replace("home");
+      //       });
 
-          },
-          err => {
-            this.setSnack("Oops. " + err.message);
-          }
-        );
+      //     },
+      //     err => {
+      //       this.setSnack("Oops. " + err.message);
+      //     }
+      //   );
+    },
+
+    registerWithFirebase () {
+      const user = {
+        email: this.email,
+        password: this.password
+      }
+      this.$store.dispatch('signUpAction', user)
     },
 
     ...mapMutations({

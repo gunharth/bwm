@@ -28,7 +28,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="login">Login</v-btn>
+            <v-btn color="primary" @click="validate">Login</v-btn>
           </v-card-actions>
           <v-card-text>
               or Sign In with
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import firebase from "../firebaseConfig.js";
+// import firebase from "../firebaseConfig.js";
 import { mapMutations } from 'vuex'
 
 export default {
@@ -61,15 +61,24 @@ export default {
     };
   },
   methods: {
-    login: function() {
-      firebase.auth.signInWithEmailAndPassword(this.email, this.password).then(
-        user => {
-              this.$router.replace("home");
-        },
-        err => {
-          this.setSnack("Oops. " + err.message);
-        }
-      );
+    validate () {
+
+      this.loginWithFirebase();
+      // firebase.auth.signInWithEmailAndPassword(this.email, this.password).then(
+      //   user => {
+      //         this.$router.replace("home");
+      //   },
+      //   err => {
+      //     this.setSnack("Oops. " + err.message);
+      //   }
+      // );
+    },
+    loginWithFirebase() {
+      const user = {
+        email: this.email,
+        password: this.password
+      }
+      this.$store.dispatch('signInAction', user)
     },
 
     socialLogin() {

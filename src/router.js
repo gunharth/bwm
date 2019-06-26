@@ -30,9 +30,9 @@ const router = new Router({
       path: "/home",
       name: "home",
       component: () => import("./components/Home.vue"),
-      meta: {
-        requiresAuth: true
-      }
+      // meta: {
+      //   requiresAuth: true
+      // }
     },
     {
       path: "/about",

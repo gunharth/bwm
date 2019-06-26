@@ -37,24 +37,30 @@ export default {
   },
   mounted() {
     console.log('mounted')
-    this.getUserDetails();
+    //this.getUserDetails();
     this.listenTokenRefresh();
 
   },
+  computed: {
+    userLogedIn () {
+      return this.$store.getters.user
+    }
+  },
   methods: {
-    getUserDetails() {
-      let user = firebase.auth.currentUser;
-      if(user) {
-      firebase.db
-        .collection("users")
-        .doc(user.uid)
-        .get()
-        .then(doc => {
-          this.nickname = doc.data().nickname;
-          console.log(this.nickname);
-        });
-      }
-    },
+
+    // getUserDetails() {
+    //   let user = firebase.auth.currentUser;
+    //   if(user) {
+    //   firebase.db
+    //     .collection("users")
+    //     .doc(user.uid)
+    //     .get()
+    //     .then(doc => {
+    //       this.nickname = doc.data().nickname;
+    //       console.log(this.nickname);
+    //     });
+    //   }
+    // },
     getMessagingToken() {
       messaging
         .getToken()
@@ -120,9 +126,12 @@ export default {
         });
     },
     logout: function() {
-      firebase.auth.signOut().then(() => {
-        this.$router.replace("login");
-      });
+      //logoutFromFirebase () {
+        this.$store.dispatch('signOutAction');
+      //}
+      // firebase.auth.signOut().then(() => {
+      //   this.$router.replace("login");
+      // });
     }
   }
 };

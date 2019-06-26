@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <Snackbar />
-    <Toolbar />
+    <snackbar />
+    <toolbar />
     <v-content>
       <transition name="fade" mode="out-in">
         <router-view></router-view>
@@ -16,7 +16,7 @@ import Snackbar from "@/components/Snackbar";
 import Toolbar from "@/components/Toolbar";
 import firebase from "@/firebaseConfig.js";
 import axios from "axios";
-import { firestore } from "firebase";
+//import { firestore } from "firebase";
 const { messaging } = firebase;
 export default {
   name: "App",
