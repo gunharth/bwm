@@ -7,7 +7,7 @@
       <span>Beer With Me PWA</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <span class="body-2 px-2">Hi, {{ nickname }}</span>
+    <span v-if="$route.name=='home'" class="body-2 px-2">Hi, {{ nickname }}</span>
     <v-btn icon v-if="$route.name=='post'" @click="$router.push({name:'camera'})">
       <v-icon>camera_alt</v-icon>
     </v-btn>
@@ -33,20 +33,28 @@ export default {
       nickname: "",
     };
   },
+  created() {
+  },
   mounted() {
-
+    console.log('mounted')
+    this.getUserDetails();
     this.listenTokenRefresh();
 
-    let user = firebase.auth.currentUser;
-    firebase.db
-      .collection("users")
-      .doc(user.uid)
-      .get()
-      .then(doc => {
-        this.nickname = doc.data().nickname;
-      });
   },
   methods: {
+    getUserDetails() {
+      let user = firebase.auth.currentUser;
+      if(user) {
+      firebase.db
+        .collection("users")
+        .doc(user.uid)
+        .get()
+        .then(doc => {
+          this.nickname = doc.data().nickname;
+          console.log(this.nickname);
+        });
+      }
+    },
     getMessagingToken() {
       messaging
         .getToken()

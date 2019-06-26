@@ -10,12 +10,6 @@
           <v-card-text>
             <v-form>
               <v-text-field
-                prepend-icon="person"
-                name="nickname"
-                label="Nickname"
-                v-model="nickname"
-              ></v-text-field>
-              <v-text-field
                 prepend-icon="email"
                 name="email"
                 label="E-mail"
@@ -61,7 +55,6 @@ export default {
   name: "login",
   data() {
     return {
-      nickname: "",
       email: "",
       password: "",
       snackName: ''
@@ -72,16 +65,13 @@ export default {
       firebase.auth.signInWithEmailAndPassword(this.email, this.password).then(
         user => {
               this.$router.replace("home");
-            //});
         },
         err => {
-          this.setSnack(err.message);
-          //this.$store.commit('store/setSnack', err.message)
-          //this.$store.dispatch('setSnack', err.message)
-          //alert("Oops. " + err.message);
+          this.setSnack("Oops. " + err.message);
         }
       );
     },
+
     socialLogin() {
       const provider = new firebase.socialAuth.GoogleAuthProvider();
       firebase.auth
@@ -98,13 +88,14 @@ export default {
           this.$router.replace("home");
         })
         .catch(err => {
-          this.setSnack(err.message)
-          alert("Oops. " + err.message);
+          this.setSnack("Oops. " + err.message)
         });
     },
+
     ...mapMutations({
       setSnack: 'setSnack'
     })
+
   }
 };
 </script>

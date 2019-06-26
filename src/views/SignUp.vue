@@ -49,16 +49,18 @@
   </v-container>
 </template>
 
-
  <script>
 import firebase from "../firebaseConfig.js";
+import { mapMutations } from 'vuex'
+
 export default {
   name: "signUp",
   data() {
     return {
       nickname: "",
       email: "",
-      password: ""
+      password: "",
+      snackName: ''
     };
   },
   methods: {
@@ -78,10 +80,15 @@ export default {
 
           },
           err => {
-            alert("Oops. " + err.message);
+            this.setSnack("Oops. " + err.message);
           }
         );
-    }
+    },
+
+    ...mapMutations({
+      setSnack: 'setSnack'
+    })
+
   }
 };
 </script>

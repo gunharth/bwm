@@ -1,7 +1,6 @@
 <template>
   <v-container grid-list-xs>
     <v-layout row wrap>
-      <div>{{ displayName }}</div>
       <v-flex v-for="(dog, index) in dogs" :key="dog.id" xs12 md6 xl3 pa-2>
         <v-card @click="$router.push({name: 'details', params:{ id:dog.id, dogProp:dogs[index] }})">
           <v-img height="300" :src="dog.url" contain></v-img>
@@ -35,7 +34,6 @@ export default {
   data() {
     return {
       dogs: [],
-      displayName: "",
       snackName: ''
     };
   },
@@ -70,15 +68,6 @@ export default {
             console.log(post.id, ' => ', post.data());
         });
     });
-
-    var user = firebase.auth.currentUser;
-    firebase.db
-      .collection("users")
-      .doc(user.uid)
-      .get()
-      .then(doc => {
-        this.displayName = doc.data().nickname;
-      });
 
     // if (user != null) {
     // user.providerData.forEach(function (profile) {
