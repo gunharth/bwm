@@ -11,6 +11,9 @@
     <v-btn icon v-if="$route.name=='post'" @click="$router.push({name:'camera'})">
       <v-icon>camera_alt</v-icon>
     </v-btn>
+    <v-btn icon v-if="$route.name=='home'" @click="installPWA" :style="{'display' : installBtn}">
+      <v-icon>cloud_download</v-icon>
+    </v-btn>
     <v-btn icon v-if="$route.name=='home'" @click="getMessagingToken">
       <v-icon>{{ icon }}</v-icon>
     </v-btn>
@@ -23,16 +26,38 @@
 <script>
 import firebase from "../firebaseConfig.js";
 import axios from "axios";
-import { firestore } from "firebase";
-const { messaging } = firebase;
+
 export default {
   name: "Toolbar",
   data() {
     return {
-      icon: "notifications_none"
+      icon: "notifications_none",
+      installBtn: "none",
+      installPWA: undefined
     };
   },
-  created() {},
+  created() {
+    let installPrompt;
+    window.addEventListener("beforeinstallprompt", e => {
+      e.preventDefault();
+      installPrompt = e;
+      this.installBtn = "block";
+    });
+
+    this.installPWA = () => {
+      this.installBtn = "none";
+      installPrompt.prompt();
+      installPrompt.userChoice.then(result => {
+        if (result.outcome === "accepted") {
+          console.log("User accepted");
+        } else {
+          console.log("User denied");
+        }
+        installPrompt = null;
+      })
+    }
+
+  },
   mounted() {
     this.listenTokenRefresh();
   },
@@ -43,7 +68,7 @@ export default {
   },
   methods: {
     getMessagingToken() {
-      messaging
+      firebase.messaging
         .getToken()
         .then(async token => {
           if (token) {
@@ -66,7 +91,7 @@ export default {
         });
     },
     notificationsPermisionRequest() {
-      messaging
+      firebase.messaging
         .requestPermission()
         .then(() => {
           this.getMessagingToken();
@@ -79,8 +104,8 @@ export default {
       const currentMessageToken = window.localStorage.getItem("messagingToken");
       console.log("currentMessageToken", currentMessageToken);
       if (!!currentMessageToken) {
-        messaging.onTokenRefresh(function() {
-          messaging
+        firebase.messaging.onTokenRefresh(function() {
+          firebase.messaging
             .getToken()
             .then(function(token) {
               this.saveToken(token);

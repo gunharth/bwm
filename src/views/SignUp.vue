@@ -68,6 +68,9 @@ export default {
     // this.$nextTick(() => this.$refs.nickname.focus())
   },
   methods: {
+    onEnter: function() {
+       this.msg = 'on enter event';
+    },
     signUp: function() {
       this.registerWithFirebase();
       // firebase.auth.createUserWithEmailAndPassword(this.email, this.password)
