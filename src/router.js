@@ -33,6 +33,14 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "/map",
+      name: "map",
+      component: () => import("./components/Map.vue"),
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 });
