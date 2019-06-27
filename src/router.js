@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import firebase from "./firebaseConfig.js";
+//import firebase from "./firebaseConfig.js";
 import Login from "./views/Login.vue";
 import SignUp from "./views/SignUp.vue";
 import store from '@/store/store'
@@ -37,8 +37,6 @@ const router = new Router({
     }
   ]
 });
-
-console.log(store.getters.user)
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);

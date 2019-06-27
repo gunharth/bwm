@@ -32,7 +32,7 @@
           </v-card-actions>
           <v-card-text>
               or Sign In with
-              <button @click="loginWithFirebaseSocial" class="social-button">
+              <button type="submit" @click="loginWithFirebaseSocial" class="social-button">
                 <img alt="Google Logo" src="../assets/google-logo.png">
               </button>
 

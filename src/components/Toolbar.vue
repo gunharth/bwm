@@ -29,36 +29,19 @@ export default {
   name: "Toolbar",
   data() {
     return {
-      icon: "notifications_none",
-      nickname: "",
+      icon: "notifications_none"
     };
   },
-  created() {
-  },
+  created() {},
   mounted() {
-    //this.getUserDetails();
     this.listenTokenRefresh();
   },
   computed: {
-    userLogedIn () {
-      return this.$store.getters.user
+    nickname: function() {
+      return this.$store.getters.user.nickname;
     }
   },
   methods: {
-
-    // getUserDetails() {
-    //   let user = firebase.auth.currentUser;
-    //   if(user) {
-    //   firebase.db
-    //     .collection("users")
-    //     .doc(user.uid)
-    //     .get()
-    //     .then(doc => {
-    //       this.nickname = doc.data().nickname;
-    //       console.log(this.nickname);
-    //     });
-    //   }
-    // },
     getMessagingToken() {
       messaging
         .getToken()
@@ -124,7 +107,7 @@ export default {
         });
     },
     logout: function() {
-        this.$store.dispatch('signOutAction');
+      this.$store.dispatch("signOutAction");
     }
   }
 };

@@ -15,6 +15,7 @@
                 label="Nickname"
                 type="text"
                 v-model="nickname"
+                ref="nickname"
               ></v-text-field>
               <v-text-field
                 prepend-icon="email"
@@ -63,6 +64,9 @@ export default {
       snackName: ''
     };
   },
+  mounted() {
+    // this.$nextTick(() => this.$refs.nickname.focus())
+  },
   methods: {
     signUp: function() {
       this.registerWithFirebase();
@@ -89,7 +93,8 @@ export default {
     registerWithFirebase () {
       const user = {
         email: this.email,
-        password: this.password
+        password: this.password,
+        nickname: this.nickname
       }
       this.$store.dispatch('signUpAction', user)
     },
