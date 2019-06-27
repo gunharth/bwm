@@ -31,10 +31,8 @@ export default new Vuex.Store({
   },
   actions: {
     autoSignIn({ commit }, payload) {
-      console.log(payload.uid)
       commit("setUser", { uid: payload.uid });
       const userDataFromAuth = { id: payload.uid, email: payload.email };
-      //commit("setUser", { uid: payload.uid });
       firebase.db
         .collection("users")
         .doc(payload.uid)
@@ -54,7 +52,6 @@ export default new Vuex.Store({
             ...userDataFromAuth,
             ...userDataFromDatabase
           };
-          console.log('called');
           commit("setUser", userData);
         });
     },
@@ -70,7 +67,11 @@ export default new Vuex.Store({
               nickname: payload.nickname
             })
             .then(() => {
-              commit("setUser", { id: response.user.uid, nickname: payload.nickname });
+              const userData = {
+                id: response.user.uid,
+                nickname: payload.nickname
+              };;
+              commit("setUser", userData);
               commit("setStatus", "success");
               commit("setError", null);
               router.replace("home");

@@ -41,7 +41,7 @@
           <v-card-text>
             <p>
               or go back to
-      <router-link to="/login">login</router-link>.
+              <router-link to="/login">login</router-link>.
             </p>
           </v-card-text>
         </v-card>
@@ -73,26 +73,7 @@ export default {
     },
     signUp: function() {
       this.registerWithFirebase();
-      // firebase.auth.createUserWithEmailAndPassword(this.email, this.password)
-      // .then(
-      //     user => {
-            // return firebase.db
-            // .collection("users")
-            // .doc(user.user.uid)
-            // .set({
-            //   nickname: this.nickname
-            // })
-            // .then(() => {
-            //   this.$router.replace("home");
-            // });
-
-      //     },
-      //     err => {
-      //       this.setSnack("Oops. " + err.message);
-      //     }
-      //   );
     },
-
     registerWithFirebase () {
       const user = {
         email: this.email,
@@ -101,11 +82,9 @@ export default {
       }
       this.$store.dispatch('signUpAction', user)
     },
-
     ...mapMutations({
       setSnack: 'setSnack'
     })
-
   }
 };
 </script>

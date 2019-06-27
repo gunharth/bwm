@@ -48,7 +48,6 @@
 </template>
 
 <script>
-// import firebase from "../firebaseConfig.js";
 import { mapMutations } from 'vuex'
 
 export default {
@@ -62,16 +61,7 @@ export default {
   },
   methods: {
     validate () {
-
       this.loginWithFirebase();
-      // firebase.auth.signInWithEmailAndPassword(this.email, this.password).then(
-      //   user => {
-      //         this.$router.replace("home");
-      //   },
-      //   err => {
-      //     this.setSnack("Oops. " + err.message);
-      //   }
-      // );
     },
     loginWithFirebase() {
       const user = {
@@ -83,31 +73,9 @@ export default {
     loginWithFirebaseSocial() {
       this.$store.dispatch('signInActionSocial')
     },
-
-    // socialLogin() {
-    //   const provider = new firebase.socialAuth.GoogleAuthProvider();
-    //   firebase.auth
-    //     .signInWithPopup(provider)
-    //     .then(cred => {
-    //       return firebase.db
-    //         .collection("users")
-    //         .doc(cred.user.uid)
-    //         .set({
-    //           nickname: cred.user.displayName
-    //         });
-    //     })
-    //     .then(() => {
-    //       this.$router.replace("home");
-    //     })
-    //     .catch(err => {
-    //       this.setSnack("Oops. " + err.message)
-    //     });
-    // },
-
     ...mapMutations({
       setSnack: 'setSnack'
     })
-
   }
 };
 </script>
