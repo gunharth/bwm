@@ -63,7 +63,13 @@ export default {
   },
   computed: {
     nickname: function() {
-      return this.$store.getters.user.nickname;
+      if(this.$store.getters.user !== null) {
+      if(this.$store.getters.user.nickname === undefined) {
+        return this.$store.getters.user.realname;
+      } else {
+        return this.$store.getters.user.nickname;
+      }
+      }
     }
   },
   methods: {

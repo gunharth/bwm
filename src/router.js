@@ -38,10 +38,12 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   if (requiresAuth && !store.getters.user) next('login');
   else if (!requiresAuth && store.getters.user) next('home');
   else next();
+  // next();
 });
 
 export default router;

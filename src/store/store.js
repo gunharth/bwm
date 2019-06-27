@@ -31,20 +31,30 @@ export default new Vuex.Store({
   },
   actions: {
     autoSignIn({ commit }, payload) {
-      const userDataFromAuth = { id: payload.uid, email: payload.email };
+      console.log(payload.uid)
       commit("setUser", { uid: payload.uid });
+      const userDataFromAuth = { id: payload.uid, email: payload.email };
+      //commit("setUser", { uid: payload.uid });
       firebase.db
         .collection("users")
         .doc(payload.uid)
         .get()
         .then(doc => {
-          const userDataFromDatabase = {
-            nickname: doc.data().nickname
-          };
+          const userDataFromDatabase = {};
+          if (doc.data().nickname) {
+            userDataFromDatabase.nickname = doc.data().nickname;
+          }
+          if (doc.data().realname) {
+            userDataFromDatabase.realname = doc.data().realname;
+          }
+            // nickname: doc.data().nickname,
+            // realname: doc.data().realname
+          // };
           const userData = {
             ...userDataFromAuth,
             ...userDataFromDatabase
           };
+          console.log('called');
           commit("setUser", userData);
         });
     },
@@ -53,10 +63,6 @@ export default new Vuex.Store({
       firebase.auth
         .createUserWithEmailAndPassword(payload.email, payload.password)
         .then(response => {
-          commit("setUser", response.user.uid);
-          commit("setStatus", "success");
-          commit("setError", null);
-
           firebase.db
             .collection("users")
             .doc(response.user.uid)
@@ -64,6 +70,9 @@ export default new Vuex.Store({
               nickname: payload.nickname
             })
             .then(() => {
+              commit("setUser", { id: response.user.uid, nickname: payload.nickname });
+              commit("setStatus", "success");
+              commit("setError", null);
               router.replace("home");
             });
         })
@@ -76,10 +85,24 @@ export default new Vuex.Store({
       firebase.auth
         .signInWithEmailAndPassword(payload.email, payload.password)
         .then(response => {
-          commit("setUser", response.user.uid);
-          commit("setStatus", "success");
-          commit("setError", null);
-          router.replace("home");
+          const userDataFromAuth = { id: response.user.uid };
+          firebase.db
+            .collection("users")
+            .doc(response.user.uid)
+            .get()
+            .then(doc => {
+              const userDataFromDatabase = {
+                nickname: doc.data().nickname
+              };
+              const userData = {
+                ...userDataFromAuth,
+                ...userDataFromDatabase
+              };
+              commit("setUser", userData);
+            commit("setStatus", "success");
+            commit("setError", null);
+            router.replace("home");
+          })
         })
         .catch(error => {
           commit("setStatus", "failure");
@@ -91,18 +114,17 @@ export default new Vuex.Store({
       firebase.auth
         .signInWithPopup(provider)
         .then(response => {
-          commit("setUser", response.user.uid);
-          commit("setStatus", "success");
-          commit("setError", null);
-
-          // return firebase.db
-          //   .collection("users")
-          //   .doc(response.user.uid)
-          //   .set({
-          //     nickname: response.user.displayName
-          //   }).then(() => {
-          router.replace("home");
-          // })
+          return firebase.db
+            .collection("users")
+            .doc(response.user.uid)
+            .set({
+              realname: response.user.displayName,
+            }).then(() => {
+              commit("setUser", { id: response.user.uid, realname: response.user.displayName });
+              commit("setStatus", "success");
+              commit("setError", null);
+              router.replace("home");
+          })
         })
         .catch(error => {
           commit("setStatus", "failure");
