@@ -35,6 +35,23 @@ const router = new Router({
       }
     },
     {
+      path: "/post",
+      name: "post",
+      props: true,
+      component: () => import("./components/Post.vue"),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/camera",
+      name: "camera",
+      component: () => import("./components/Camera.vue"),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: "/map",
       name: "map",
       component: () => import("./components/Map.vue"),
