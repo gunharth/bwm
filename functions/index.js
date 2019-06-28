@@ -10,9 +10,12 @@ let firestore = admin.firestore();
 exports.GeneralSubscription = functions.https.onRequest((request, response) => {
   console.log("token", request.body.token);
 
-  cors(request, response, function () {
+  cors(request, response, function() {
     axios
-      .post(`https://iid.googleapis.com/iid/v1/${request.body.token}/rel/topics/general`,
+      .post(
+        `https://iid.googleapis.com/iid/v1/${
+          request.body.token
+        }/rel/topics/general`,
         {},
         {
           headers: {
@@ -48,7 +51,9 @@ exports.createDrink = functions.firestore
   .onCreate(event => {
     var drink = event.data();
     console.log(drink.comment);
-    axios.post(`https://fcm.googleapis.com/fcm/send`,
+    axios
+      .post(
+        "https://fcm.googleapis.com/fcm/send",
         {
           to: "/topics/general",
           priority: "high",
@@ -79,12 +84,9 @@ exports.createUser = functions.firestore
   .document("users/{userId}")
   .onCreate(event => {
     var user = event.data();
-
-    console.log(user.nickname);
-
     axios
       .post(
-        `https://fcm.googleapis.com/fcm/send`,
+        "https://fcm.googleapis.com/fcm/send",
         {
           to: "/topics/general",
           priority: "high",
