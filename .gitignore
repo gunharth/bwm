@@ -4,6 +4,7 @@ node_modules
 /src/firebaseCredentials.js
 /functions/serverKeys.js
 /.firebase
+.vscode
 
 # local env files
 .env.local
