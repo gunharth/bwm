@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import firebase from '../configFirebase.js'
-import postDog from './mixins/postDog.js'
+import firebase from '../firebaseConfig.js'
+import postDog from './mixins/postDrink.js'
 export default {
     data () {
         return {

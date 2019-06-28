@@ -16,7 +16,7 @@
                             <v-text-field v-model="author" name="author" label="Author" hint="your name" id="author"/>
                             <v-btn block color="primary"
                             @click="post()">
-                                POST Dring
+                                Post Drink
                             </v-btn>
                         </v-flex>
                     </v-layout>
@@ -28,7 +28,7 @@
 
 <script>
 import axios from 'axios'
-import podrink from './mixins/postDrink.js'
+import postDrink from './mixins/postDrink.js'
 export default {
     props:{
         pictureUrl:{

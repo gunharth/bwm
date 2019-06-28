@@ -14,10 +14,6 @@
       </v-flex>
     </v-layout>
     <v-layout>
-    <v-flex text-xs-center xs4 offset-xs4>
-      <v-text-field label="What snack?" v-model="snackName" />
-      <v-btn class="primary" @click="snackTime">Test snack</v-btn>
-    </v-flex>
   </v-layout>
     <v-btn @click="$router.push({ name: 'post'})" color="red" dark fixed bottom right fab>
       <v-icon>add</v-icon>

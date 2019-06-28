@@ -10,12 +10,9 @@ let firestore = admin.firestore();
 exports.GeneralSubscription = functions.https.onRequest((request, response) => {
   console.log("token", request.body.token);
 
-  cors(request, response, function() {
+  cors(request, response, function () {
     axios
-      .post(
-        `https://iid.googleapis.com/iid/v1/${
-          request.body.token
-        }/rel/topics/general`,
+      .post(`https://iid.googleapis.com/iid/v1/${request.body.token}/rel/topics/general`,
         {},
         {
           headers: {
@@ -46,23 +43,19 @@ exports.GeneralSubscription = functions.https.onRequest((request, response) => {
   });
 });
 
-exports.createDog = functions.firestore
-  .document("dogs/{dogId}")
+exports.createDrink = functions.firestore
+  .document("drinks/{drinkId}")
   .onCreate(event => {
-    var dog = event.data();
-
-    console.log(dog.comment);
-
-    axios
-      .post(
-        `https://fcm.googleapis.com/fcm/send`,
+    var drink = event.data();
+    console.log(drink.comment);
+    axios.post(`https://fcm.googleapis.com/fcm/send`,
         {
           to: "/topics/general",
           priority: "high",
           notification: {
-            title: "Nueva publicación",
-            body: dog.comment,
-            click_action: "http://localhost:8081",
+            title: "Someone is thirsty",
+            body: drink.comment,
+            click_action: "https://bwm.gunicode.com",
             icon:
               "http://localhost:8081/chrome/chrome-installprocess-128-128.png"
           }
@@ -79,7 +72,7 @@ exports.createDog = functions.firestore
         console.log(response.data);
       })
       .catch(err => {
-        console.log(err.response);
+        console.log(err);
       });
   });
 
@@ -97,9 +90,9 @@ exports.createUser = functions.firestore
           to: "/topics/general",
           priority: "high",
           notification: {
-            title: "New User",
-            body: user.nickname,
-            click_action: "http://localhost:8081",
+            title: "BWM: New drinker on board!",
+            body: user.nickname + " is a serious drinker",
+            click_action: "https://bwm.gunicode.com",
             icon:
               "http://localhost:8081/chrome/chrome-installprocess-128-128.png"
           }
@@ -116,6 +109,6 @@ exports.createUser = functions.firestore
         console.log(response.data);
       })
       .catch(err => {
-        console.log(err.response);
+        console.log(err);
       });
   });

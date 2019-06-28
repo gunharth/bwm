@@ -15,7 +15,7 @@ export default (url, comment, author) => {
   console.log(firebase.db);
 
   firebase.db
-    .collection("dogs")
+    .collection("drinks")
     .add({
       url,
       comment,
