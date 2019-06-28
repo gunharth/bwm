@@ -56,8 +56,7 @@ exports.createDrink = functions.firestore
             title: "Someone is thirsty",
             body: drink.comment,
             click_action: "https://bwm.gunicode.com",
-            icon:
-              "http://localhost:8081/chrome/chrome-installprocess-128-128.png"
+            icon: "https://bwm.gunicode.com/img/icons/notification-128x128.png"
           }
         },
         {
@@ -93,8 +92,7 @@ exports.createUser = functions.firestore
             title: "BWM: New drinker on board!",
             body: user.nickname + " is a serious drinker",
             click_action: "https://bwm.gunicode.com",
-            icon:
-              "http://localhost:8081/chrome/chrome-installprocess-128-128.png"
+            icon: "https://bwm.gunicode.com/img/icons/notification-128x128.png"
           }
         },
         {

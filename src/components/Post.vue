@@ -12,8 +12,7 @@
                 <v-container fluid style="min-height: 0" grid-list-lg>
                     <v-layout row wrap>
                         <v-flex xs12>
-                            <v-text-field v-model="title" name="title" label="Describe me" id="title"/>
-                            <v-text-field v-model="author" name="author" label="Author" hint="your name" id="author"/>
+                            <v-text-field v-model="title" name="title" label="What are you up to?" id="title"/>
                             <v-btn block color="primary"
                             @click="post()">
                                 Post Drink
@@ -40,7 +39,6 @@ export default {
         return {
             drinkUrl: null,
             title:'',
-            author:'',
             loading:true,
         }
     },
@@ -62,7 +60,14 @@ export default {
     },
     methods:{
         post(){
-            postDrink(this.drinkUrl, this.title, this.author)
+            let authorId = this.$store.getters.user.id;
+            let authorNickname;
+            if(this.$store.getters.user.nickname === undefined) {
+                authorNickname = this.$store.getters.user.realname;
+            } else {
+                authorNickname = this.$store.getters.user.nickname;
+            }
+            postDrink(this.drinkUrl, this.title, authorNickname, authorId)
         }
     }
 }

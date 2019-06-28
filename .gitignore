@@ -3,6 +3,7 @@ node_modules
 /dist
 /src/firebaseCredentials.js
 /functions/serverKeys.js
+/.firebase
 
 # local env files
 .env.local
