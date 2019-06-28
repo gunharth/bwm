@@ -1,13 +1,13 @@
 <template>
   <v-container grid-list-xs>
     <v-layout row wrap>
-      <v-flex v-for="(dog, index) in dogs" :key="dog.id" xs12 md6 xl3 pa-2>
-        <v-card @click="$router.push({name: 'details', params:{ id:dog.id, dogProp:dogs[index] }})">
-          <v-img height="300" :src="dog.url" contain></v-img>
+      <v-flex v-for="(drink, index) in drinks" :key="drink.id" xs12 md6 xl3 pa-2>
+        <v-card @click="$router.push({name: 'details', params:{ id:drink.id, drinkProp:drinks[index] }})">
+          <v-img height="300" :src="drink.url" contain></v-img>
           <v-card-title primary-title style="padding-top:13px">
             <div>
-              <h3 class="headline">{{ dog.comment }}</h3>
-              <div>{{ dog.info }}</div>
+              <h3 class="headline">{{ drink.comment }}</h3>
+              <div>{{ drink.info }}</div>
             </div>
           </v-card-title>
         </v-card>
@@ -33,7 +33,7 @@ import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      dogs: [],
+      drinks: [],
       snackName: ''
     };
   },
@@ -48,26 +48,26 @@ export default {
   },
   mounted() {
     firebase.db
-      .collection("dogs")
+      .collection("drinks")
       .orderBy("created_at", "desc")
       .onSnapshot(snapShot => {
-        this.dogs = [];
-        snapShot.forEach(dog => {
-          this.dogs.push({
-            id: dog.id,
-            url: dog.data().url,
-            comment: dog.data().comment,
-            info: dog.data().info
+        this.drinks = [];
+        snapShot.forEach(drink => {
+          this.drinks.push({
+            id: drink.id,
+            url: drink.data().url,
+            comment: drink.data().comment,
+            info: drink.data().info
           });
         });
       });
 
-    var posts = firebase.db.collectionGroup('posts');
-    posts.get().then(function (querySnapshot) {
-        querySnapshot.forEach(function (post) {
-            console.log(post.id, ' => ', post.data());
-        });
-    });
+    // var posts = firebase.db.collectionGroup('posts');
+    // posts.get().then(function (querySnapshot) {
+    //     querySnapshot.forEach(function (post) {
+    //         console.log(post.id, ' => ', post.data());
+    //     });
+    // });
 
     // if (user != null) {
     // user.providerData.forEach(function (profile) {
