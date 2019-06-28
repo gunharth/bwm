@@ -73,6 +73,9 @@ export default {
       }
     };
   },
+  mounted() {
+
+  },
   methods: {
     zoomUpdate(zoom) {
       this.currentZoom = zoom;
