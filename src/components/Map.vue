@@ -60,14 +60,14 @@ export default {
   data() {
     return {
       zoom: 13,
-      center: latLng(47.41422, -1.250482),
+      center: latLng(47.262219099999996, 11.389905299999999),
       url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      withPopup: latLng(47.41422, -1.250482),
+      withPopup: [47.41422, -1.250482],
       //withTooltip: latLng(47.41422, -1.250482),
       currentZoom: 11.5,
-      currentCenter: latLng(47.41322, -1.219482),
+      currentCenter: latLng(47.262219099999996, 11.389905299999999),
       showParagraph: false,
       mapOptions: {
         zoomSnap: 0.5
@@ -76,16 +76,19 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-    this.$refs.map.mapObject.locate({setView : true});
-    function onLocationFound(e) {
-      console.log("3");
-      let lat = (e.latlng.lat);
-      let lng = (e.latlng.lng);
-      console.log(lat + ' ' + lng);
-      //let newLatLng = new this.$refs.map.mapObject.LatLng(lat, lng);
-      this.withPopup = this.$refs.map.mapObject.latLng(lat, lng);
-    }
-    this.$refs.map.mapObject.on('locationfound', onLocationFound);
+      let map = this.$refs.map.mapObject;
+      map.locate({ setView : true, watch: true })
+          .on('locationfound', onLocationFound);
+
+      function onLocationFound(e) {
+        console.log("3");
+        let lat = (e.latlng.lat);
+        let lng = (e.latlng.lng);
+        console.log(lat + ' ' + lng);
+        //let newLatLng = new map.LatLng(lat, lng);
+        this.withPopup = [lat, lng];
+      }
+
     })
   },
   methods: {

@@ -51,7 +51,7 @@ exports.createDrink = functions.firestore
   .onCreate(event => {
     var drink = event.data();
     console.log(drink.comment);
-    axios
+    return axios
       .post(
         "https://fcm.googleapis.com/fcm/send",
         {
@@ -84,7 +84,7 @@ exports.createUser = functions.firestore
   .document("users/{userId}")
   .onCreate(event => {
     var user = event.data();
-    axios
+    return axios
       .post(
         "https://fcm.googleapis.com/fcm/send",
         {

@@ -64,11 +64,11 @@ export default {
   computed: {
     nickname: function() {
       if(this.$store.getters.user !== null) {
-      if(this.$store.getters.user.nickname === undefined) {
-        return this.$store.getters.user.realname;
-      } else {
-        return this.$store.getters.user.nickname;
-      }
+        if(this.$store.getters.user.nickname === undefined) {
+          return this.$store.getters.user.realname;
+        } else {
+          return this.$store.getters.user.nickname;
+        }
       }
     }
   },
@@ -105,12 +105,15 @@ export default {
     listenTokenRefresh() {
       const currentMessageToken = window.localStorage.getItem("messagingToken");
       console.log("currentMessageToken", currentMessageToken);
+      //console.log(!!currentMessageToken);
       if (!!currentMessageToken) {
+        this.icon = 'notifications_active';
         firebase.messaging.onTokenRefresh(function() {
           firebase.messaging
             .getToken()
             .then(function(token) {
               this.saveToken(token);
+              console.log('Got a new token');
             })
             .catch(function(err) {
               console.log("Unable to retrieve refreshed token ", err);
@@ -124,6 +127,7 @@ export default {
         .post("https://us-central1-bmwgunicode.cloudfunctions.net/GeneralSubscription", { token })
         .then(response => {
           window.localStorage.setItem("messagingToken", token);
+          this.icon = 'notifications_active';
           console.log(response);
         })
         .catch(err => {
