@@ -6,6 +6,9 @@ import router from "./router";
 import "./registerServiceWorker";
 import "material-design-icons-iconfont/dist/material-design-icons.css";
 import store from "./store/store";
+import VueMoment from "vue-moment";
+
+Vue.use(VueMoment);
 
 // leaflet
 import { Icon } from "leaflet";
