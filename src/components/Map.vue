@@ -13,6 +13,7 @@
       style="height: calc(100vh - 56px)"
       @update:center="centerUpdate"
       @update:zoom="zoomUpdate"
+      ref="map"
     >
       <l-tile-layer :url="url" :attribution="attribution" />
       <l-marker :lat-lng="withPopup">
@@ -27,7 +28,7 @@
           </div>
         </l-popup>
       </l-marker>
-      <l-marker :lat-lng="withTooltip">
+      <!-- <l-marker :lat-lng="withTooltip">
         <l-tooltip :options="{ permanent: true, interactive: true }">
           <div @click="innerClick">
             I am a tooltip
@@ -38,7 +39,7 @@
             </p>
           </div>
         </l-tooltip>
-      </l-marker>
+      </l-marker> -->
     </l-map>
   </div>
 </template>
@@ -59,12 +60,12 @@ export default {
   data() {
     return {
       zoom: 13,
-      center: latLng(47.41322, -1.219482),
+      center: latLng(47.41422, -1.250482),
       url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      withPopup: latLng(47.41322, -1.219482),
-      withTooltip: latLng(47.41422, -1.250482),
+      withPopup: latLng(47.41422, -1.250482),
+      //withTooltip: latLng(47.41422, -1.250482),
       currentZoom: 11.5,
       currentCenter: latLng(47.41322, -1.219482),
       showParagraph: false,
@@ -74,7 +75,18 @@ export default {
     };
   },
   mounted() {
-
+    this.$nextTick(() => {
+    this.$refs.map.mapObject.locate({setView : true});
+    function onLocationFound(e) {
+      console.log("3");
+      let lat = (e.latlng.lat);
+      let lng = (e.latlng.lng);
+      console.log(lat + ' ' + lng);
+      //let newLatLng = new this.$refs.map.mapObject.LatLng(lat, lng);
+      this.withPopup = this.$refs.map.mapObject.latLng(lat, lng);
+    }
+    this.$refs.map.mapObject.on('locationfound', onLocationFound);
+    })
   },
   methods: {
     zoomUpdate(zoom) {
