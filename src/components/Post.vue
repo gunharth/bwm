@@ -13,6 +13,7 @@
                     <v-layout row wrap>
                         <v-flex xs12>
                             <v-text-field v-model="title" name="title" label="What are you up to?" id="title"/>
+                            <!-- <v-text-field v-model="position" name="position" label="What are you up to?" id="position"/> -->
                             <v-btn block color="primary"
                             @click="post()">
                                 Post Drink
@@ -40,9 +41,21 @@ export default {
             drinkUrl: null,
             title:'',
             loading:true,
+            lat: '',
+            lng: '',
         }
     },
     mounted(){
+
+        if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition( (position) => {
+                    //currentPosition = new L.LatLng(position.coords.latitude, position.coords.longitude);
+                    console.log(position.coords.latitude);
+                    this.lat = position.coords.latitude;
+                    this.lng = position.coords.longitude;
+                });
+            }
+
         if(this.pictureUrl !== ''){
             this.drinkUrl = this.pictureUrl;
             this.loading=false;
@@ -67,7 +80,7 @@ export default {
             } else {
                 authorNickname = this.$store.getters.user.nickname;
             }
-            postDrink(this.drinkUrl, this.title, authorNickname, authorId)
+            postDrink(this.drinkUrl, this.title, authorNickname, authorId, this.lat, this.lng)
         }
     }
 }

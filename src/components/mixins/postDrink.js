@@ -1,7 +1,7 @@
 import firebase from "../../firebaseConfig.js";
 import router from "../../router";
 
-export default (url, comment, authorNickname, authorId) => {
+export default (url, comment, authorNickname, authorId, lat, lng) => {
   let d = new Date();
   let days = [
     "Sunday",
@@ -21,6 +21,8 @@ export default (url, comment, authorNickname, authorId) => {
       comment,
       info: `Posted by ${authorNickname != "" ? authorNickname : "Unknow"} on ${days[d.getDay()]}`,
       authorId: authorId,
+      lat: lat,
+      lng: lng,
       created_at: new Date().getTime()
     })
     .then(router.push({ name: "home" }));
