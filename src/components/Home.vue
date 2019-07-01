@@ -7,7 +7,7 @@
           <v-card-title primary-title style="padding-top:13px">
             <div>
               <h3 class="headline">{{ drink.comment }}</h3>
-              <div>{{ drink.info }}, {{ drink.created_at | moment("from", "now") }}</div>
+              <div>{{ drink.author }}, {{ drink.created_at | moment("from", "now") }}</div>
             </div>
           </v-card-title>
         </v-card>
@@ -53,7 +53,7 @@ export default {
             id: drink.id,
             url: drink.data().url,
             comment: drink.data().comment,
-            info: drink.data().info,
+            author: drink.data().author,
             created_at: drink.data().created_at,
           });
         });

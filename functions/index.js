@@ -58,8 +58,8 @@ exports.createDrink = functions.firestore
           to: "/topics/general",
           priority: "high",
           notification: {
-            title: "Someone is thirsty",
-            body: drink.comment,
+            title: drink.author + " is thirsty!",
+            body: drink.comment || "Join in for a drink",
             click_action: "https://bwm.gunicode.com",
             icon: "https://bwm.gunicode.com/img/icons/notification-128x128.png"
           }

@@ -19,7 +19,7 @@ export default (url, comment, authorNickname, authorId, lat, lng) => {
     .add({
       url,
       comment,
-      info: `${authorNickname != "" ? authorNickname : "Unknow"}`,
+      author: `${authorNickname != "" ? authorNickname : "Unknow"}`,
       authorId: authorId,
       lat: lat,
       lng: lng,

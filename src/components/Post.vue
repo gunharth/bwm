@@ -38,9 +38,9 @@ export default {
     },
     data(){
         return {
-            drinkUrl: null,
+            drinkUrl: 'https://bwm.gunicode.com/img/icons/android-chrome-192x192.png',
             title:'',
-            loading:true,
+            loading:false,
             lat: '',
             lng: '',
         }
@@ -60,14 +60,23 @@ export default {
             this.drinkUrl = this.pictureUrl;
             this.loading=false;
         }else{
-            axios.get('https://dog.ceo/api/breed/appenzeller/images/random').then(response => {
-                if(response.data.status){
-                    this.drinkUrl = response.data.message;
-                    this.loading=false;
-                }else{
-                    console.log("Error getting image")
-                }
-            })
+            // axios.get('https://dog.ceo/api/breed/appenzeller/images/random').then(response => {
+            //     if(response.data.status){
+            //         this.drinkUrl = response.data.message;
+            //         this.loading=false;
+            //     }else{
+            //         console.log("Error getting image")
+            //     }
+            // })
+
+            // axios.get('https://api.punkapi.com/v2/beers/random').then(response => {
+            //     if(response.status == 200){
+            //         this.drinkUrl = response.data[0].image_url;
+            //         this.loading=false;
+            //     }else{
+            //         console.log("Error getting image")
+            //     }
+            // })
         }
 
     },

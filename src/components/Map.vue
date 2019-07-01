@@ -94,9 +94,9 @@ export default {
               const newMarker = {
                 id: drink.id,
                 position: { lat: drink.data().lat, lng: drink.data().lng },
-                tooltip: drink.data().comment,
+                tooltip: `${drink.data().author}: ${drink.data().comment}`,
                 draggable: false,
-                visible: true
+                visible: true,
               };
               this.markers.push(newMarker);
             }
