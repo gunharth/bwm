@@ -3,7 +3,7 @@
     <v-layout row wrap>
       <v-flex v-for="(drink, index) in drinks" :key="drink.id" xs12 md6 xl3 pa-2>
         <v-card @click="$router.push({name: 'details', params:{ id:drink.id, drinkProp:drinks[index] }})">
-          <v-img height="300" :src="drink.url" contain></v-img>
+          <v-img height="250" :src="drink.url" contain></v-img>
           <v-card-title primary-title style="padding-top:13px">
             <div>
               <h3 class="headline">{{ drink.comment }}</h3>

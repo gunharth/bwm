@@ -8,6 +8,9 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <span v-if="$route.name=='home'" class="body-2 px-2">Hi, {{ nickname }}</span>
+    <v-btn icon v-if="$route.name=='home'" @click="$router.push({name:'map'})">
+      <v-icon>location_on</v-icon>
+    </v-btn>
     <v-btn icon v-if="$route.name=='post'" @click="$router.push({name:'camera'})">
       <v-icon>camera_alt</v-icon>
     </v-btn>

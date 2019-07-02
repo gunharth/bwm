@@ -1,4 +1,7 @@
 <template>
+<v-container grid-list-xs>
+        <v-layout>
+            <v-flex>
   <div class="camera-modal">
     <video ref="video" class="camera-stream" />
     <div class="camera-modal-container"></div>
@@ -6,6 +9,9 @@
       <v-icon>camera</v-icon>
     </v-btn>
   </div>
+              </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>

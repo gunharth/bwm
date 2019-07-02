@@ -7,7 +7,7 @@
                     </v-progress-circular>
                 </div>
 
-                <img :src="this.drinkUrl" />
+                <img :src="this.drinkUrl" class="beer" />
 
                 <v-container fluid style="min-height: 0" grid-list-lg>
                     <v-layout row wrap>
@@ -38,7 +38,7 @@ export default {
     },
     data(){
         return {
-            drinkUrl: 'https://bwm.gunicode.com/img/beer.png',
+            drinkUrl: '../assets/beer.jpg',
             title:'',
             loading:false,
             lat: '',
@@ -99,8 +99,7 @@ export default {
 img {
     max-width: 100%;
     height: auto;
-    width: auto\9;
-    /* ie8 */
+    /* width: auto\9; */
 }
 #spinner_container{
     text-align: center;
@@ -108,5 +107,8 @@ img {
 .spinner{
     margin:auto;
     margin: 4rem;
+}
+.beer {
+    /* max-height: 400px; */
 }
 </style>

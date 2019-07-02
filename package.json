@@ -18,7 +18,6 @@
     "vue-moment": "^4.0.0",
     "vue-router": "^3.0.3",
     "vue2-leaflet": "^2.1.1",
-    "vue2-leaflet-locatecontrol": "^1.0.1",
     "vuetify": "^1.5.5",
     "vuex": "^3.0.1"
   },
