@@ -38,7 +38,7 @@ export default {
     },
     data(){
         return {
-            drinkUrl: 'https://bwm.gunicode.com/img/icons/android-chrome-192x192.png',
+            drinkUrl: 'https://bwm.gunicode.com/img/beer.png',
             title:'',
             loading:false,
             lat: '',
