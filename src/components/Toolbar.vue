@@ -62,7 +62,9 @@ export default {
 
   },
   mounted() {
-    this.listenTokenRefresh();
+    if(firebase.messaging) {
+      this.listenTokenRefresh();
+    }
   },
   computed: {
     nickname: function() {

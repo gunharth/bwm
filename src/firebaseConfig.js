@@ -10,7 +10,10 @@ firebase.initializeApp(config);
 let db = firebase.firestore();
 db.enablePersistence({ synchronizeTabs: true });
 const storage = firebase.storage();
-const messaging = firebase.messaging();
+let messaging = null;
+if (firebase.messaging.isSupported()) {
+  messaging = firebase.messaging();
+}
 const auth = firebase.auth();
 const socialAuth = firebase.auth;
 export default {

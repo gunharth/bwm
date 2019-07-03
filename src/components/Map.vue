@@ -66,7 +66,7 @@ export default {
     return {
       zoom: 18,
       center: latLng(47.262219099999996, 11.389905299999999),
-      url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
+      url: "https://{s}.tile.osm.org/{z}/{x}/{y}.png",
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       withPopup: [47.41422, -1.250482],
@@ -81,12 +81,13 @@ export default {
     };
   },
   mounted() {
-    let ONE_HOUR = 30 * 60 * 1000;
+    let ONE_HOUR = 60 * 60 * 1000;
     let time = new Date().getTime()-ONE_HOUR;
+
     firebase.db
       .collection("drinks")
-      .where("created_at", ">=", time)
-      .orderBy("created_at", "desc")
+      //.where("created_at", ">=", time)
+      //.orderBy("created_at", "desc")
       .onSnapshot(snapShot => {
         this.markers = [];
         let authorIds = [];
