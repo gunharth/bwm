@@ -4,7 +4,7 @@
       <v-icon>arrow_back</v-icon>
     </v-btn>
     <v-toolbar-title>
-      <span>Beer With Me PWA</span>
+      <span>BwM PWA</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <span v-if="$route.name=='home'" class="body-2 px-2">Hi, {{ nickname }}</span>

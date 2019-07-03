@@ -81,8 +81,11 @@ export default {
     };
   },
   mounted() {
+    let ONE_HOUR = 30 * 60 * 1000;
+    let time = new Date().getTime()-ONE_HOUR;
     firebase.db
       .collection("drinks")
+      .where("created_at", ">=", time)
       .orderBy("created_at", "desc")
       .onSnapshot(snapShot => {
         this.markers = [];
