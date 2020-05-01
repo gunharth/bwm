@@ -1,6 +1,6 @@
 import Vue from "vue";
 import firebase from "./firebaseConfig.js";
-import "./plugins/vuetify";
+import vuetify from "./plugins/vuetify";
 import App from "./App.vue";
 import router from "./router";
 import "./registerServiceWorker";
@@ -34,6 +34,7 @@ firebase.auth.onAuthStateChanged(firebaseUser => {
   if (!app) {
     /* eslint-disable no-new */
     app = new Vue({
+      vuetify,
       router,
       store,
       render: h => h(App)

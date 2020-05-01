@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar app>
+  <v-app-bar app>
     <v-btn icon v-if="$route.name !== 'home' && $route.name !=='login'" @click="$router.go(-1) ">
       <v-icon>arrow_back</v-icon>
     </v-btn>
@@ -23,7 +23,7 @@
     <v-btn icon v-if="$route.name=='home'" @click="logout">
       <v-icon>power_settings_new</v-icon>
     </v-btn>
-  </v-toolbar>
+  </v-app-bar>
 </template>
 
 <script>
